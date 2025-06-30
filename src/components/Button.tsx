@@ -1,5 +1,6 @@
 import { log } from "console";
 import React, { useState } from "react";
+import { useCounter } from "../providers/Counter";
 
 // preferred way
 interface ButtonProps {
@@ -7,37 +8,18 @@ interface ButtonProps {
   onClick?: () => void; // optional
 }
 
-interface Book {
-  name: string;
-  price: number;
-}
-
 const Button: React.FC<ButtonProps> = (props) => {
-  const { text, onClick } = props;
+  // const {value, setCountS} = useCounter(); 
+  // As we are not able to de-structure it here, as this is `null` as well insted of `CounterContextType` in `Counter.tsx`
 
-  const [value, setValue] = useState<string | undefined>();
-
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(e);
-  };
+  const context = useCounter();
 
   return (
     <div>
-      <form action="" onSubmit={handleOnSubmit}>
-        <input
-          onChange={handleNameChange}
-          type="text"
-          placeholder="Enter Name"
-          value={value}
-        />
-        <button type="submit">Submit</button>
-      </form>
-      <h3>{value}</h3>
+      <h1>{context?.value}</h1>
+      <button onClick={() => context?.setCount(context?.value + 1)}>
+        Counter
+      </button>
     </div>
   );
 };
