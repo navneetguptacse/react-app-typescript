@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <Button text="Click Me" />
-      <Button text="Click Me Again" />
+      <Button onClick={() => alert("Okey!!")} text="Click Me Again" />
     </div>
   );
 }
